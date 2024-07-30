@@ -20,6 +20,7 @@ public class Model {
     private Matrix4x4 yRotationMatrix=new Matrix4x4();;
     private Matrix4x4 zRotationMatrix=new Matrix4x4();;
     private float xRotation=0.0f, zRotation=0.0f, yRotation=0.0f;
+    private float offset = 2.0f;
 
     public float getxRotation() {
         return xRotation;
@@ -51,40 +52,7 @@ public class Model {
 
     public Model(){
         
-        ArrayList<Triangle> triangles = new ArrayList<>(
-            Arrays.asList(
-                //cube
-                    //Front Face
-                    new Triangle(new Vector3D(0, 0, 0), new Vector3D(0, 1, 0), new Vector3D(1, 1, 0)),
-                    new Triangle(new Vector3D(0, 0, 0), new Vector3D(1, 1, 0), new Vector3D(1, 0, 0)),
-                    //Right Face
-                    new Triangle(new Vector3D(1, 0, 0), new Vector3D(1, 1, 0), new Vector3D(1, 1, 1)),
-                    new Triangle(new Vector3D(1, 0, 0), new Vector3D(1, 1, 1), new Vector3D(1, 0, 1)),
-                    //Left Face
-                    new Triangle(new Vector3D(0,0,1), new Vector3D(0,1,1), new Vector3D(0,1,0)),
-                    new Triangle(new Vector3D(0,0,1), new Vector3D(0,1,0), new Vector3D(0,0,0)),
-                    //Behind Face
-                    new Triangle(new Vector3D(1,0,1), new Vector3D(1,1,1), new Vector3D(0,1,1)),
-                    new Triangle(new Vector3D(1,0,1), new Vector3D(0,1,1), new Vector3D(0,0,1)),
-                    //Up Face
-                    new Triangle(new Vector3D(0,1,0), new Vector3D(0,1,1), new Vector3D(1,1,1)),
-                    new Triangle(new Vector3D(0,1,0), new Vector3D(1,1,1), new Vector3D(1,1,0)),
-                    //Down Face
-                    new Triangle(new Vector3D(0,0,1), new Vector3D(0,0,0), new Vector3D(1,0,0)),
-                    new Triangle(new Vector3D(0,0,0), new Vector3D(1,0,0), new Vector3D(1,0,1))
-                    
-//                //pyramid
-//                    //Left
-//                    new Triangle(new Vector3D(0, 0, 1), new Vector3D(0.5f, 1, 0.5f), new Vector3D(0.5f,0,0)),
-//                    //Right
-//                    new Triangle(new Vector3D(0.5f,0,0), new Vector3D(0.5f, 1, 0.5f), new Vector3D(1,0,1)),
-//                    //Back
-//                    new Triangle(new Vector3D(1,0,1), new Vector3D(0.5f, 1, 0.5f), new Vector3D(0,0,1)),
-//                    //Down
-//                    new Triangle(new Vector3D(0,0,1), new Vector3D(0.5f, 0, 0), new Vector3D(1,0,1))
-                    
-            )
-        );
+        
         
         //Projection Matrix
             //HardCoded values
@@ -102,9 +70,7 @@ public class Model {
         projectionMatrix.matrix[2][3] = 1f;
         projectionMatrix.matrix[3][3] = 0f;
 
-        mesh.tris.addAll(triangles);
-        
-        updateRotationMatrices();
+
         
         
         
@@ -143,9 +109,9 @@ public class Model {
 
         //Sends the Z vertex of each coordinate further back
         
-        tri.getIndex(0).setZ(tri.getIndex(0).getZ() + 2);
-        tri.getIndex(1).setZ(tri.getIndex(1).getZ() + 2);
-        tri.getIndex(2).setZ(tri.getIndex(2).getZ() + 2);
+        tri.getIndex(0).setZ(tri.getIndex(0).getZ() + offset);
+        tri.getIndex(1).setZ(tri.getIndex(1).getZ() + offset);
+        tri.getIndex(2).setZ(tri.getIndex(2).getZ() + offset);
         
         return tri;
 
@@ -229,5 +195,142 @@ public class Model {
             zRotationMatrix.matrix[3][3]=1f;
     }
     
-}
+    
+    public void createCube(){
+ArrayList<Triangle> triangles = new ArrayList<>(
+                Arrays.asList(
+                        //cube
+                        //Front Face
+                        new Triangle(new Vector3D(0, 0, 0), new Vector3D(0, 1, 0), new Vector3D(1, 1, 0)),
+                        new Triangle(new Vector3D(0, 0, 0), new Vector3D(1, 1, 0), new Vector3D(1, 0, 0)),
+                        //Right Face
+                        new Triangle(new Vector3D(1, 0, 0), new Vector3D(1, 1, 0), new Vector3D(1, 1, 1)),
+                        new Triangle(new Vector3D(1, 0, 0), new Vector3D(1, 1, 1), new Vector3D(1, 0, 1)),
+                        //Left Face
+                        new Triangle(new Vector3D(0, 0, 1), new Vector3D(0, 1, 1), new Vector3D(0, 1, 0)),
+                        new Triangle(new Vector3D(0, 0, 1), new Vector3D(0, 1, 0), new Vector3D(0, 0, 0)),
+                        //Behind Face
+                        new Triangle(new Vector3D(1, 0, 1), new Vector3D(1, 1, 1), new Vector3D(0, 1, 1)),
+                        new Triangle(new Vector3D(1, 0, 1), new Vector3D(0, 1, 1), new Vector3D(0, 0, 1)),
+                        //Up Face
+                        new Triangle(new Vector3D(0, 1, 0), new Vector3D(0, 1, 1), new Vector3D(1, 1, 1)),
+                        new Triangle(new Vector3D(0, 1, 0), new Vector3D(1, 1, 1), new Vector3D(1, 1, 0)),
+                        //Down Face
+                        new Triangle(new Vector3D(0, 0, 1), new Vector3D(0, 0, 0), new Vector3D(1, 0, 0)),
+                        new Triangle(new Vector3D(0, 0, 0), new Vector3D(1, 0, 0), new Vector3D(1, 0, 1))
+                )
+        );
+        mesh.tris.addAll(triangles);
+        updateRotationMatrices();    
+    }
 
+    public void createPyramid() {
+ArrayList<Triangle> triangles = new ArrayList<>(
+                Arrays.asList(
+                                //pyramid
+                                    //Left
+                                    new Triangle(new Vector3D(0, 0, 1), new Vector3D(0.5f, 1, 0.5f), new Vector3D(0.5f,0,0)),
+                                    //Right
+                                    new Triangle(new Vector3D(0.5f,0,0), new Vector3D(0.5f, 1, 0.5f), new Vector3D(1,0,1)),
+                                    //Back
+                                    new Triangle(new Vector3D(1,0,1), new Vector3D(0.5f, 1, 0.5f), new Vector3D(0,0,1)),
+                                    //Down
+                                    new Triangle(new Vector3D(0,0,1), new Vector3D(0.5f, 0, 0), new Vector3D(1,0,1))
+
+                )
+        );
+        mesh.tris.addAll(triangles);
+        updateRotationMatrices();  
+    }
+
+    public void createRubiksCube() {
+
+        this.offset = -10;
+
+        for (float i = -.5f; i < 1; i++) {
+            for (float j = -.5f; j < 1; j++) {
+                for (float k = -.5f; k < 1; k++) {
+
+                    ArrayList<Triangle> triangles = new ArrayList<>(
+                            Arrays.asList(
+                                    //Front Face
+                                    new Triangle(new Vector3D(-1 + i, 1 + j, -1 + k), new Vector3D(-1 + i, -1 + j, -1 + k), new Vector3D(1 + i, -1 + j, -1 + k)),
+                                    new Triangle(new Vector3D(-1 + i, 1 + j, -1 + k), new Vector3D(1 + i, -1 + j, -1 + k), new Vector3D(1 + i, 1 + j, -1 + k)),
+                                    //Right Face
+                                    new Triangle(new Vector3D(1 + i, 1 + j, -1 + k), new Vector3D(1 + i, -1 + j, -1 + k), new Vector3D(1 + i, -1 + j, 1 + k)),
+                                    new Triangle(new Vector3D(1 + i, 1 + j, -1 + k), new Vector3D(1 + i, -1 + j, -1 + k), new Vector3D(1 + i, 1 + j, 1 + k)),
+                                    //Left Face
+                                    new Triangle(new Vector3D(-1 + i, 1 + j, 1 + k), new Vector3D(-1 + i, -1 + j, 1 + k), new Vector3D(-1 + i, -1 + j, -1 + k)),
+                                    new Triangle(new Vector3D(-1 + i, 1 + j, 1 + k), new Vector3D(-1 + i, -1 + j, -1 + k), new Vector3D(-1 + i, 1 + j, -1 + k)),
+                                    //Behind Face
+                                    new Triangle(new Vector3D(1 + i, 1 + j, 1 + k), new Vector3D(1 + i, -1 + j, 1 + k), new Vector3D(-1 + i, -1 + j, 1 + k)),
+                                    new Triangle(new Vector3D(1 + i, 1 + j, 1 + k), new Vector3D(-1 + i, -1 + j, 1 + k), new Vector3D(-1 + i, 1 + j, 1 + k)),
+                                    //Up Face
+                                    new Triangle(new Vector3D(-1 + i, -1 + j, -1 + k), new Vector3D(-1 + i, -1 + j, 1 + k), new Vector3D(1 + i, -1 + j, 1 + k)),
+                                    new Triangle(new Vector3D(-1 + i, -1 + j, -1 + k), new Vector3D(1 + i, -1 + j, 1 + k), new Vector3D(1 + i, -1 + j, -1 + k)),
+                                    //Down Face
+                                    new Triangle(new Vector3D(-1 + i, 1 + j, 1 + k), new Vector3D(-1 + i, 1 + j, -1 + k), new Vector3D(1 + i, 1 + j, -1 + k)),
+                                    new Triangle(new Vector3D(-1 + i, 1 + j, 1 + k), new Vector3D(1 + i, 1 + j, -1 + k), new Vector3D(1 + i, 1 + j, 1 + k))
+                            )
+                    );
+                    mesh.tris.addAll(triangles);
+                }
+            }
+        }
+        ArrayList<Triangle> triangles = new ArrayList<>(
+                Arrays.asList(
+                        //Front Face
+                        new Triangle(new Vector3D(-1, 1, -1), new Vector3D(-1, -1, -1), new Vector3D(1, -1, -1)),
+                        new Triangle(new Vector3D(-1, 1, -1), new Vector3D(1, -1, -1), new Vector3D(1, 1, -1)),
+                        //Right Face
+                        new Triangle(new Vector3D(1, 1, -1), new Vector3D(1, -1, -1), new Vector3D(1, -1, 1)),
+                        new Triangle(new Vector3D(1, 1, -1), new Vector3D(1, -1, -1), new Vector3D(1, 1, 1)),
+                        //Left Face
+                        new Triangle(new Vector3D(-1, 1, 1), new Vector3D(-1, -1, 1), new Vector3D(-1, -1, -1)),
+                        new Triangle(new Vector3D(-1, 1, 1), new Vector3D(-1, -1, -1), new Vector3D(-1, 1, -1)),
+                        //Behind Face
+                        new Triangle(new Vector3D(1, 1, 1), new Vector3D(1, -1, 1), new Vector3D(-1, -1, 1)),
+                        new Triangle(new Vector3D(1, 1, 1), new Vector3D(-1, -1, 1), new Vector3D(-1, 1, 1)),
+                        //Up Face
+                        new Triangle(new Vector3D(-1, -1, -1), new Vector3D(-1, -1, 1), new Vector3D(1, -1, 1)),
+                        new Triangle(new Vector3D(-1, -1, -1), new Vector3D(1, -1, 1), new Vector3D(1, -1, -1)),
+                        //Down Face
+                        new Triangle(new Vector3D(-1, 1, 1), new Vector3D(-1, 1, -1), new Vector3D(1, 1, -1)),
+                        new Triangle(new Vector3D(-1, 1, 1), new Vector3D(1, 1, -1), new Vector3D(1, 1, 1))
+                )
+        );
+        mesh.tris.addAll(triangles);
+        updateRotationMatrices(); 
+    }
+    
+    public void createCenteredCube() {
+        
+        this.offset = -10;
+
+        ArrayList<Triangle> triangles = new ArrayList<>(
+                Arrays.asList(
+                        //cube 
+                        //Front Face
+                        new Triangle(new Vector3D(-1, 1, -1), new Vector3D(-1, -1, -1), new Vector3D(1, -1, -1)),
+                        new Triangle(new Vector3D(-1, 1, -1), new Vector3D(1, -1, -1), new Vector3D(1, 1, -1)),
+                        //Right Face
+                        new Triangle(new Vector3D(1, 1, -1), new Vector3D(1, -1, -1), new Vector3D(1, -1, 1)),
+                        new Triangle(new Vector3D(1, 1, -1), new Vector3D(1, -1, -1), new Vector3D(1, 1, 1)),
+                        //Left Face
+                        new Triangle(new Vector3D(-1, 1, 1), new Vector3D(-1, -1, 1), new Vector3D(-1, -1, -1)),
+                        new Triangle(new Vector3D(-1, 1, 1), new Vector3D(-1, -1, -1), new Vector3D(-1, 1, -1)),
+                        //Behind Face
+                        new Triangle(new Vector3D(1, 1, 1), new Vector3D(1, -1, 1), new Vector3D(-1, -1, 1)),
+                        new Triangle(new Vector3D(1, 1, 1), new Vector3D(-1, -1, 1), new Vector3D(-1, 1, 1)),
+                        //Up Face
+                        new Triangle(new Vector3D(-1, -1, -1), new Vector3D(-1, -1, 1), new Vector3D(1, -1, 1)),
+                        new Triangle(new Vector3D(-1, -1, -1), new Vector3D(1, -1, 1), new Vector3D(1, -1, -1)),
+                        //Down Face
+                        new Triangle(new Vector3D(-1, 1, 1), new Vector3D(-1, 1, -1), new Vector3D(1, 1, -1)),
+                        new Triangle(new Vector3D(-1, 1, 1), new Vector3D(1, 1, -1), new Vector3D(1, 1, 1))
+                )
+        );
+        mesh.tris.addAll(triangles);
+        updateRotationMatrices(); 
+    }
+}

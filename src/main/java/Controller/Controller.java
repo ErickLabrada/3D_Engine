@@ -57,19 +57,21 @@ public class Controller implements KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {}
 
+    
+    //1.57 is a rotation of about 90 degrees
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            model.setyRotation(model.getyRotation() - 0.1f);
+            model.setyRotation(model.getyRotation() - 0.10f);
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            model.setyRotation(model.getyRotation() + 0.1f);
+            model.setyRotation(model.getyRotation() + 0.10f);
         }
         if (e.getKeyCode() == KeyEvent.VK_UP) {
-            model.setxRotation(model.getxRotation() - 0.1f);
+            model.setxRotation(model.getxRotation() - 0.10f);
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            model.setxRotation(model.getxRotation() + 0.1f);
+            model.setxRotation(model.getxRotation() + 0.10f);
         }
         view.repaint();
     }

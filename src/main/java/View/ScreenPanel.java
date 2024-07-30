@@ -26,6 +26,9 @@ public class ScreenPanel extends JPanel {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
+        g.setColor(Color.RED);
+        g.fillRect(this.getWidth()/2-1, this.getHeight()/2-1, this.getWidth()/2+1, this.getHeight()/2+1);
+        
         Mesh mesh = controller.getRenderData();
 
         for (Triangle tri : mesh.getTriangles()) {

@@ -17,6 +17,7 @@ public class Main {
         JFrame frame = new JFrame("3D Renderer");
         ScreenPanel screenPanel = new ScreenPanel();
         Model model = new Model();
+        model.createRubiksCube();
         Controller controller = new Controller(model, screenPanel);
         screenPanel.addController(controller);
 
