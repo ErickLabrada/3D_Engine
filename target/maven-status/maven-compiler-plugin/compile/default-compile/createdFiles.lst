@@ -1,0 +1,8 @@
+View\ScreenPanel.class
+Model\Vector3D.class
+Model\Triangle.class
+Model\Model.class
+Controller\Controller.class
+Model\Mesh.class
+Main\Main.class
+Model\Matrix4x4.class
