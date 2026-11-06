@@ -79,6 +79,6 @@ Prerequisites
 
 Build & Run
 
-git clone https://github.com/yourusername/3d-engine.git
-cd 3d-engine
+git clone https://github.com/ErickLabrada/3D_Engine.git
+cd 3D_Engine
 mvn clean compile exec:java -Dexec.mainClass="Main.Main"
